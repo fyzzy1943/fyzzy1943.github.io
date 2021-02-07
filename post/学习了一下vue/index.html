@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>学习了一下vue - fordawn - a person blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="fordawn" /><meta name="description" content="起 博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就" /><meta name="keywords" content="fordawn" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/%E5%AD%A6%E4%B9%A0%E4%BA%86%E4%B8%80%E4%B8%8Bvue/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="学习了一下vue" />
+<meta property="og:description" content="起 博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/%E5%AD%A6%E4%B9%A0%E4%BA%86%E4%B8%80%E4%B8%8Bvue/" />
+<meta property="article:published_time" content="2018-06-16T12:20:23+00:00" />
+<meta property="article:modified_time" content="2020-09-23T12:59:41+00:00" />
+<meta itemprop="name" content="学习了一下vue">
+<meta itemprop="description" content="起 博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就">
+<meta itemprop="datePublished" content="2018-06-16T12:20:23+00:00" />
+<meta itemprop="dateModified" content="2020-09-23T12:59:41+00:00" />
+<meta itemprop="wordCount" content="991">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="学习了一下vue"/>
+<meta name="twitter:description" content="起 博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Fordawn</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Fordawn</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">学习了一下vue</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-16 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/"> 沉默之音 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#起">起</a></li>
+            <li><a href="#搞">搞</a></li>
+            <li><a href="#三">三</a></li>
+            <li><a href="#尾">尾</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="起">起</h3>
+<p>博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就不擅长写文章的人来说，打断连续性无异于致命一击。于是想给新建文章的页面增加一个功能，就是页面内直接添加分类，添加成功后，追加到分类列表里。</p>
+<h3 id="搞">搞</h3>
+<p>不管怎么说，一个input和一个button是肯定需要的，这之后就出现了一些分歧：</p>
+<p>如果用比较传统的方式，需要给button绑一个onclick事件，在事件中获取input 的值，然后使用xhr传给后端，拿到结果后，在分类列表的select中添加一条option。</p>
+<p>我想了一下，感觉有些麻烦，正好以前也了解过vue，感觉双向绑定这个武器，很适合做这个事情。</p>
+<p>思路大概是这样的，我们需要两个数据绑定，一个是分类列表，一个是新增分类的input。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">createCategory: function () {
+    this.$http.post(&#39;/category&#39;, {
+        &#34;name&#34;: this.tmpCategory
+    }).then(function (data) {
+        console.log(data);
+        if (data.body.code == 0) {
+            this.categories.push(data.body.data);
+            this.tmpCategory = &#39;&#39;;
+        } else {
+            alert(data.body.msg);
+        }
+    });
+</code></pre></td></tr></table>
+</div>
+</div><p>这是新增分类的方法，<code>tmpCategory</code>是使用<code>v-model</code>和input绑定在一起的，直接获取值就可以使用。使用<code>v-on:click=&quot;createCategory&quot;</code>将这个方法绑定在按钮上，这样一点按钮就会触发。<code>categories</code>是和列表绑定的，所以push进去一个对象，列表也会更新，简直是太方便了。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;select class=&#34;form-control&#34; id=&#34;category&#34; name=&#34;category&#34;&gt;
+    &lt;option v-for=&#34;category in categories&#34; :value=&#34;category.id&#34;&gt;@{{ category.name }}&lt;/option&gt;
+&lt;/select&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>v-for</code>就可以把列表循环出来了。</p>
+<h3 id="三">三</h3>
+<p>用的时候出现了一个问题，就是<code>this.$http.post</code>提示没有post这个方法，但是我去网上找了一圈vue的请求都是这么用的，很奇怪。之后根据错误提示，才发现，原来还需要<code>vue-resource.js</code>这个库才行，而且2.0里好像也不需要use就能使用了，而且2.0里生命周期也变了，从ready变成了mounted，估计还有其他需要注意的地方。</p>
+<h3 id="尾">尾</h3>
+<p>从使用体验上来说，vue确实不错，但是就我用的深度来说，还达不到能横向对比的程度。纵向对比的话，确实比老旧的方法方便了很多，之后有机会的话，也会比较系统的看一遍文档来了解一下。</p>
+<p>以前一直以为用vue的话，需要编译，没想到原来是直接用的，浏览器真是越来越高级了，前几天看到ff也支持<code>web assembly</code>了，世界真是日新月异。但是vue从ie9开始支持，对广义的国内环境来说，支持度还是稍微差了些。不过好在需要低版本支持的网站，也越来越少了。</p>
+<p>a wonderful world</p>
+
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/wechat-pay.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/path/to/your/alipay-qr-code.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/laravel-%E6%A1%86%E6%9E%B6%E6%89%A9%E5%B1%95-auth-%E8%AE%A4%E8%AF%81%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-driverguard/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">laravel 框架扩展 Auth 认证，实现自定义 driver，guard</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A5%9E%E5%A5%87%E7%9A%84http400%E9%94%99%E8%AF%AF/">
+            <span class="next-text nav-default">记一次神奇的http400错误</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/fyzzy1943" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2010 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>fordawn</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

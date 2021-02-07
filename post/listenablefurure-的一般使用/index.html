@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ListenableFurure 的一般使用 - fordawn - a person blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="fordawn" /><meta name="description" content="说到java，就不得不说起多线程的使用，在 java8 的时代，可以使用多线程的方式已经非常多了，这里主要记录一下 ListenableFurure 的使用。 ListenableFurure 是guava库中的一员，主" /><meta name="keywords" content="fordawn" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/listenablefurure-%E7%9A%84%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ListenableFurure 的一般使用" />
+<meta property="og:description" content="说到java，就不得不说起多线程的使用，在 java8 的时代，可以使用多线程的方式已经非常多了，这里主要记录一下 ListenableFurure 的使用。 ListenableFurure 是guava库中的一员，主" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/listenablefurure-%E7%9A%84%E4%B8%80%E8%88%AC%E4%BD%BF%E7%94%A8/" />
+<meta property="article:published_time" content="2020-05-10T14:29:02+00:00" />
+<meta property="article:modified_time" content="2020-09-23T12:33:26+00:00" />
+<meta itemprop="name" content="ListenableFurure 的一般使用">
+<meta itemprop="description" content="说到java，就不得不说起多线程的使用，在 java8 的时代，可以使用多线程的方式已经非常多了，这里主要记录一下 ListenableFurure 的使用。 ListenableFurure 是guava库中的一员，主">
+<meta itemprop="datePublished" content="2020-05-10T14:29:02+00:00" />
+<meta itemprop="dateModified" content="2020-09-23T12:33:26+00:00" />
+<meta itemprop="wordCount" content="1297">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ListenableFurure 的一般使用"/>
+<meta name="twitter:description" content="说到java，就不得不说起多线程的使用，在 java8 的时代，可以使用多线程的方式已经非常多了，这里主要记录一下 ListenableFurure 的使用。 ListenableFurure 是guava库中的一员，主"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Fordawn</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Fordawn</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ListenableFurure 的一般使用</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-05-10 </span>
+        <div class="post-category">
+            <a href="/categories/java-%E8%AE%B0%E5%BD%95/"> JAVA 记录 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#listenablefuture-vs-completablefuture">Listenablefuture vs Completablefuture</a></li>
+            <li><a href="#listenablefuture的使用">ListenableFuture的使用</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>说到java，就不得不说起多线程的使用，在 java8 的时代，可以使用多线程的方式已经非常多了，这里主要记录一下 ListenableFurure  的使用。</p>
+<p>ListenableFurure 是guava库中的一员，主要是扩展原生的Future没有回调函数的诟病，通过ListenableFurure ，可以轻松的为异步方法添加回调、统一处理、链式处理等。</p>
+<h3 id="listenablefuture-vs-completablefuture">Listenablefuture vs Completablefuture</h3>
+<p>说道Future，就要提一下Completablefuture，这是java8中提供的一种新类型，他用与Listenablefuture 类似的方式扩展了基础的Future，那么他们有什么异同呢？</p>
+<p>首先，和原始的Future比起来，这两者都具有一个优势。即允许给异步一个操作注册一个回调方法，这个方法将会在异步方法完成之后执行。</p>
+<p>如果用原始的Future：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ExecutorService</span> <span class="n">executor</span> <span class="o">=</span> <span class="o">...;</span>
+<span class="n">Future</span> <span class="n">f</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="na">submit</span><span class="o">(...);</span>
+<span class="n">f</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>f.get()</code> 会阻塞住线程，直到异步方法结束。</p>
+<p>如果使用Listenablefuture，就可以注册一个回调方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ListenableFuture</span> <span class="n">listenable</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">submit</span><span class="o">(...);</span>
+    <span class="n">Futures</span><span class="o">.</span><span class="na">addCallback</span><span class="o">(</span><span class="n">listenable</span><span class="o">,</span> <span class="k">new</span> <span class="n">FutureCallback</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;()</span> <span class="o">{</span>
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">//handle on success
+</span><span class="c1"></span>                <span class="o">}</span>
+
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailure</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">throwable</span><span class="o">)</span> <span class="o">{</span>
+                   <span class="c1">//handle on failure
+</span><span class="c1"></span>                <span class="o">}</span>
+            <span class="o">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果使用Completablefuture，也可以注册一个回调方法供异步方法完成之后调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="n">CompletableFuture</span> <span class="n">completableFuture</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CompletableFuture</span><span class="o">();</span>
+<span class="n">completableFuture</span><span class="o">.</span><span class="na">whenComplete</span><span class="o">(</span><span class="k">new</span> <span class="n">BiConsumer</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">,</span> <span class="n">Object</span> <span class="n">o2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//handle complete
+</span><span class="c1"></span>    <span class="o">}</span>
+<span class="o">});</span> <span class="c1">// complete the task
+</span><span class="c1"></span><span class="n">completableFuture</span><span class="o">.</span><span class="na">complete</span><span class="o">(</span><span class="k">new</span> <span class="n">Object</span><span class="o">())</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>不过当然他们也有一些区别，这些区别我们可以放到以后再研究，本篇还是记录一下ListenableFuture的使用。</p>
+<h3 id="listenablefuture的使用">ListenableFuture的使用</h3>
+<h4 id="线程池">线程池</h4>
+<p>ListenableFuture 使用的线程池为ListeningExecutorService，可以通过MoreExecutors工具类方便的封装一个原生线程池得到：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));
+</code></pre></td></tr></table>
+</div>
+</div><p>这个线程池也是对ExecutorService的一种实现，可以当做只是对原生线程池的一种封装。</p>
+<h4 id="listenablefuture">ListenableFuture</h4>
+<p>假设有一个耗时的方法，所以把他写成一个异步的方法，他的返回值是 string，可是我们希望使用它的封装类 Document，那么，我们可以这样实现</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">final ListenableFuture&lt;String&gt; future = //...
+ 
+final ListenableFuture&lt;Document&gt; documentFuture = Futures.transform(future, new Function&lt;String, Document&gt;() {
+    @Override
+    public Document apply(String contents) {
+        return parse(contents);
+    }
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>或者也可以将转换方法分离出来，增加可读性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">final Function&lt;String, Document&gt; parseFun = new Function&lt;String, Document&gt;() {
+    @Override
+    public Document apply(String contents) {
+        return parse(contents);
+    }
+};
+ 
+final ListenableFuture&lt;String&gt; future = //...
+ 
+final ListenableFuture&lt;Document&gt; documentFuture = Futures.transform(future, parseFun);
+</code></pre></td></tr></table>
+</div>
+</div><p>Futures.transform 方法就相当于注册了一个回调方法，当异步方法执行结束之后，就会调用它。当我们希望继续转换的时候，可以继续使用transform 方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">final Function&lt;Document, Double&gt; relevanceFun = new Function&lt;Document, Double&gt;() {
+    @Nullable
+    @Override
+    public Double apply(@Nullable Document input) {
+        return calculateRelevance(input);
+    }
+};
+ 
+final ListenableFuture&lt;String&gt; future = //...
+final ListenableFuture&lt;Document&gt; documentFuture = Futures.transform(future, parseFun);
+final ListenableFuture&lt;Double&gt; relevanceFuture = Futures.transform(documentFuture, relevanceFun);
+</code></pre></td></tr></table>
+</div>
+</div><p>看起来是不是还不错，我们从获取到一个 String 首先转换成Document，然后计算relevance的值，这一切都是异步的。如果使用Future，就需要不断的get和submit，ListenableFuture让这个过程方便了很多。</p>
+<p>如果我们有很多Future，也可以轻松的获取到他们执行都结束以后的Future：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">final List&lt;ListenableFuture&lt;Double&gt;&gt; relevanceFutures = //...;
+final ListenableFuture&lt;List&lt;Double&gt;&gt; futureOfRelevance = Futures.allAsList(relevanceFutures);
+</code></pre></td></tr></table>
+</div>
+</div><p>在最后，可以增加一个callback方法进行处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Futures.addCallback(maxRelevanceFuture, new FutureCallback&lt;List&lt;Double&gt;&gt;() {
+    @Override
+    public void onSuccess(List&lt;Double&gt; result) {
+    	Double result = Collections.max(relevanceList);
+        log.debug(&#34;Result: {}&#34;, result);
+    }
+ 
+    @Override
+    public void onFailure(Throwable t) {
+        log.error(&#34;Error :-(&#34;, t);
+    }
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就获取到了最终的结果，是不是看起来还不错呢。</p>
+<p>当使用异步方法处理rest请求的时候，一般需要配合DeferredResult，以便于等待结果处理好之后再返回，防止提前返回结果。</p>
+
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/wechat-pay.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/path/to/your/alipay-qr-code.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/swagger-response-%E9%87%8C%E5%B1%95%E7%A4%BA-deferredresult-%E7%9A%84%E6%B3%9B%E5%9E%8B%E7%B1%BB/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Swagger response 里展示 DeferredResult 的泛型类</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/what-good-sleepers-dont-do/">
+            <span class="next-text nav-default">What Good Sleepers Don’t Do</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/fyzzy1943" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2010 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>fordawn</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

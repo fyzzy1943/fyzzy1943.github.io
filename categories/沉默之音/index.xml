@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>沉默之音 on fordawn - a person blog</title>
+    <link>http://localhost:1313/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/</link>
+    <description>Recent content in 沉默之音 on fordawn - a person blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>fordawn</copyright>
+    <lastBuildDate>Fri, 25 Sep 2020 16:25:21 +0800</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>迁移到hugo</title>
+      <link>http://localhost:1313/post/2020/migrating-to-hugo/</link>
+      <pubDate>Fri, 25 Sep 2020 16:25:21 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/migrating-to-hugo/</guid>
+      <description>换到hugo 今天，把博客的程序迁移到了hugo，尝试一下静态网页。 从一开始的wp，到自己写了一套前端后端，到现在hugo，没想到一转眼已经过</description>
+    </item>
+    
+    <item>
+      <title>如何写一个Spring Boot Filter</title>
+      <link>http://localhost:1313/post/2020/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAspring-boot-filter/</link>
+      <pubDate>Wed, 26 Aug 2020 07:56:32 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/%E5%A6%82%E4%BD%95%E5%86%99%E4%B8%80%E4%B8%AAspring-boot-filter/</guid>
+      <description>1. 总览 在本快速教程中，我们将探索如何在Spring Boot的帮助下定义自定义过滤器并指定其调用顺序。 2. 定义过滤器和调用顺序 让我们从创建两个过</description>
+    </item>
+    
+    <item>
+      <title>maven的标准目录结构</title>
+      <link>http://localhost:1313/post/2020/maven%E7%9A%84%E6%A0%87%E5%87%86%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Thu, 06 Aug 2020 10:35:24 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/maven%E7%9A%84%E6%A0%87%E5%87%86%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/</guid>
+      <description>maven 是构建 java 项目最常用的工具之一，熟悉 maven 推荐的目录结构，可以更快更好的上手一个 maven 项目。 目录 含义 src/main/java Application/Library sources src/main/resources Application/Library resources src/main/filters Resource filter files src/main/webapp Web application sources src/test/java Test sources src/test/resources Test resources src/test/filters Test resource filter</description>
+    </item>
+    
+    <item>
+      <title>5个webflux新手常见的问题</title>
+      <link>http://localhost:1313/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Wed, 22 Jul 2020 15:41:35 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+      <description>这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力</description>
+    </item>
+    
+    <item>
+      <title>在 typora 中使用 uPic 保存图片</title>
+      <link>http://localhost:1313/post/2020/%E5%9C%A8-typora-%E4%B8%AD%E4%BD%BF%E7%94%A8-upic-%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87/</link>
+      <pubDate>Sun, 19 Jul 2020 09:22:29 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/%E5%9C%A8-typora-%E4%B8%AD%E4%BD%BF%E7%94%A8-upic-%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87/</guid>
+      <description>在写作的过程中，插入图片是不可避免的事情，这样才能写出图文并茂的文章。 在使用一些博客服务，或者使用笔记程序时，一般都会提供上传图片的功能，保</description>
+    </item>
+    
+    <item>
+      <title>如何拥有一个炫酷的 GitHub 主页</title>
+      <link>http://localhost:1313/post/2020/%E5%A6%82%E4%BD%95%E6%8B%A5%E6%9C%89%E4%B8%80%E4%B8%AA%E7%82%AB%E9%85%B7%E7%9A%84-github-%E4%B8%BB%E9%A1%B5/</link>
+      <pubDate>Wed, 15 Jul 2020 14:25:16 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/%E5%A6%82%E4%BD%95%E6%8B%A5%E6%9C%89%E4%B8%80%E4%B8%AA%E7%82%AB%E9%85%B7%E7%9A%84-github-%E4%B8%BB%E9%A1%B5/</guid>
+      <description>身为一名程序员，github肯定不会陌生，主页里那些东西也早已熟知，无非是设置几个展示的项目，和打卡一样的提交记录。但是！现在github有</description>
+    </item>
+    
+    <item>
+      <title>Swagger response 里展示 DeferredResult 的泛型类</title>
+      <link>http://localhost:1313/post/2020/swagger-response-%E9%87%8C%E5%B1%95%E7%A4%BA-deferredresult-%E7%9A%84%E6%B3%9B%E5%9E%8B%E7%B1%BB/</link>
+      <pubDate>Sun, 14 Jun 2020 07:30:53 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2020/swagger-response-%E9%87%8C%E5%B1%95%E7%A4%BA-deferredresult-%E7%9A%84%E6%B3%9B%E5%9E%8B%E7%B1%BB/</guid>
+      <description>swagger swagger 是一款常用的生成 api 文档的工具，可以非常好的与 spring boot 结合使用。配合各种注解，可以非常完善的展示 api 的各种信息。不过现在使用多线程获取数据以后，</description>
+    </item>
+    
+    <item>
+      <title>diagnosticd 进程突然占用很多cpu的解决方案</title>
+      <link>http://localhost:1313/post/2019/diagnosticd-%E8%BF%9B%E7%A8%8B%E7%AA%81%E7%84%B6%E5%8D%A0%E7%94%A8%E5%BE%88%E5%A4%9Acpu%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Thu, 08 Aug 2019 02:35:56 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2019/diagnosticd-%E8%BF%9B%E7%A8%8B%E7%AA%81%E7%84%B6%E5%8D%A0%E7%94%A8%E5%BE%88%E5%A4%9Acpu%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</guid>
+      <description>今天早上打开电脑的时候，发现风扇在疯狂转动。肯定是什么进程占用了大量的cpu。 打开monitor，发现了一个叫做diagnosticd的进程</description>
+    </item>
+    
+    <item>
+      <title>2018回望</title>
+      <link>http://localhost:1313/post/2019/2018%E5%9B%9E%E6%9C%9B/</link>
+      <pubDate>Mon, 11 Feb 2019 06:43:02 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2019/2018%E5%9B%9E%E6%9C%9B/</guid>
+      <description>风华正茂 不知道咋会想起来这么一个词，但是我想以后写总结的时候都带一个当时从脑袋里奔腾而出的词。 是计划好，还是随缘好。 首先，这篇文章是在我连续</description>
+    </item>
+    
+    <item>
+      <title>laravel 框架扩展 Auth 认证，实现自定义 driver，guard</title>
+      <link>http://localhost:1313/post/2018/laravel-%E6%A1%86%E6%9E%B6%E6%89%A9%E5%B1%95-auth-%E8%AE%A4%E8%AF%81%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-driverguard/</link>
+      <pubDate>Wed, 20 Jun 2018 11:51:48 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/laravel-%E6%A1%86%E6%9E%B6%E6%89%A9%E5%B1%95-auth-%E8%AE%A4%E8%AF%81%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-driverguard/</guid>
+      <description>起 最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是api_token，这让我很不爽，laravel 这样</description>
+    </item>
+    
+    <item>
+      <title>学习了一下vue</title>
+      <link>http://localhost:1313/post/2018/%E5%AD%A6%E4%B9%A0%E4%BA%86%E4%B8%80%E4%B8%8Bvue/</link>
+      <pubDate>Sat, 16 Jun 2018 12:20:23 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/%E5%AD%A6%E4%B9%A0%E4%BA%86%E4%B8%80%E4%B8%8Bvue/</guid>
+      <description>起 博客每篇文章都有一个分类，有的时候，写着写着才发现没有建分类，这个时候只能保存一下草稿，出去创建分类，然后再回来继续写文章。对我这种本身就</description>
+    </item>
+    
+    <item>
+      <title>记一次神奇的http400错误</title>
+      <link>http://localhost:1313/post/2018/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A5%9E%E5%A5%87%E7%9A%84http400%E9%94%99%E8%AF%AF/</link>
+      <pubDate>Mon, 21 May 2018 03:40:22 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%A5%9E%E5%A5%87%E7%9A%84http400%E9%94%99%E8%AF%AF/</guid>
+      <description>最近在工作中遇到了一次神奇的http400事情，记录一下。 起因 由于项目架构要求，需要开发一个proxy服务，用来统一转发外部的请求给后端服务</description>
+    </item>
+    
+    <item>
+      <title>搭建git服务器&amp;部署钩子</title>
+      <link>http://localhost:1313/post/2018/%E6%90%AD%E5%BB%BAgit%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E9%92%A9%E5%AD%90/</link>
+      <pubDate>Sat, 12 May 2018 09:34:53 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/%E6%90%AD%E5%BB%BAgit%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2%E9%92%A9%E5%AD%90/</guid>
+      <description>一般我们在写好文档后，会生成一份apidoc发给前端同学，好让前端同学了解接口格式，进行开发。一直以来，我都是在本机搭建了一个服务器，让其他</description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>http://localhost:1313/post/2018/test/</link>
+      <pubDate>Wed, 11 Apr 2018 11:30:03 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/test/</guid>
+      <description>lily</description>
+    </item>
+    
+    <item>
+      <title>2017年终总结</title>
+      <link>http://localhost:1313/post/2018/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Sat, 27 Jan 2018 16:29:06 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2018/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</guid>
+      <description>谁无暴风劲雨时，守得云开见月明。 花开复见却飘零，残憾莫使今生留。 &amp;mdash;《水浒传》 年终总结有什么用呢，大概是一份回忆吧，所以也来一篇迟</description>
+    </item>
+    
+    <item>
+      <title>php 的安装</title>
+      <link>http://localhost:1313/post/2017/php-%E7%9A%84%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Thu, 12 Oct 2017 14:48:01 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017/php-%E7%9A%84%E5%AE%89%E8%A3%85/</guid>
+      <description>1 ./configure --prefix=/usr/local/php5_6_31 --enable-mysqlnd --enable-fpm --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --enable-mbstring --enable-bcmath --with-openssl=/usr/local/opt/openssl --with-curl</description>
+    </item>
+    
+    <item>
+      <title>困倦的午后小记</title>
+      <link>http://localhost:1313/post/2017/%E5%9B%B0%E5%80%A6%E7%9A%84%E5%8D%88%E5%90%8E%E5%B0%8F%E8%AE%B0/</link>
+      <pubDate>Tue, 05 Sep 2017 15:42:27 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017/%E5%9B%B0%E5%80%A6%E7%9A%84%E5%8D%88%E5%90%8E%E5%B0%8F%E8%AE%B0/</guid>
+      <description>有时候感叹，智商真是有限，好在感叹还不至于那么频繁。 学习 忙里偷闲，学习了一下 laravel 的 Event (via)，简单的说，逻辑就是在代码里使用 event()触</description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>http://localhost:1313/post/2017/test/</link>
+      <pubDate>Fri, 04 Aug 2017 17:53:10 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>博客开发记录</title>
+      <link>http://localhost:1313/post/2017/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Tue, 25 Jul 2017 23:08:38 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017/%E5%8D%9A%E5%AE%A2%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/</guid>
+      <description>学习 compass 看了看sass的资料才发现，2007年就有sass了，那时候我还在啃泥巴。compass也是好多年前就有了。 http://compass-style.org/ 用了compass的re</description>
+    </item>
+    
+    <item>
+      <title>欣喜溢于言表</title>
+      <link>http://localhost:1313/post/2017/%E6%AC%A3%E5%96%9C%E6%BA%A2%E4%BA%8E%E8%A8%80%E8%A1%A8/</link>
+      <pubDate>Wed, 19 Jul 2017 22:25:35 +0000</pubDate>
+      
+      <guid>http://localhost:1313/post/2017/%E6%AC%A3%E5%96%9C%E6%BA%A2%E4%BA%8E%E8%A8%80%E8%A1%A8/</guid>
+      <description>记得最开始是在QQ空间的日志，胡乱写些东西，转写东西。 后来上了大学，开始鼓捣起来，用wordpress搭建了第一个博客，放在虚拟主机上，断断</description>
+    </item>
+    
+  </channel>
+</rss>

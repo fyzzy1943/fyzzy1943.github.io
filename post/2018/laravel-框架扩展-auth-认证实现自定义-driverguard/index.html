@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>laravel 框架扩展 Auth 认证，实现自定义 driver，guard - fordawn - a person blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="fordawn" /><meta name="description" content="起 最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是api_token，这让我很不爽，laravel 这样" /><meta name="keywords" content="fordawn" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/2018/laravel-%E6%A1%86%E6%9E%B6%E6%89%A9%E5%B1%95-auth-%E8%AE%A4%E8%AF%81%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-driverguard/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="laravel 框架扩展 Auth 认证，实现自定义 driver，guard" />
+<meta property="og:description" content="起 最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是api_token，这让我很不爽，laravel 这样" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/2018/laravel-%E6%A1%86%E6%9E%B6%E6%89%A9%E5%B1%95-auth-%E8%AE%A4%E8%AF%81%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89-driverguard/" />
+<meta property="article:published_time" content="2018-06-20T11:51:48+00:00" />
+<meta property="article:modified_time" content="2020-09-23T02:11:35+00:00" />
+<meta itemprop="name" content="laravel 框架扩展 Auth 认证，实现自定义 driver，guard">
+<meta itemprop="description" content="起 最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是api_token，这让我很不爽，laravel 这样">
+<meta itemprop="datePublished" content="2018-06-20T11:51:48+00:00" />
+<meta itemprop="dateModified" content="2020-09-23T02:11:35+00:00" />
+<meta itemprop="wordCount" content="2072">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="laravel 框架扩展 Auth 认证，实现自定义 driver，guard"/>
+<meta name="twitter:description" content="起 最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是api_token，这让我很不爽，laravel 这样"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Fordawn</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Fordawn</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">laravel 框架扩展 Auth 认证，实现自定义 driver，guard</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-20 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/"> 沉默之音 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#起">起</a></li>
+            <li><a href="#寻">寻</a></li>
+            <li><a href="#尾">尾</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="起">起</h3>
+<p>最近研究 laravel 自带的认证，发现使用token认证方式的话，默认传值字段和数据库中字段名都是<code>api_token</code>，这让我很不爽，laravel 这样的框架一定有什么自定义的途径，网上查询无果，那就自己看看源码吧。</p>
+<h3 id="寻">寻</h3>
+<p>我们知道，认证其实就是调用<code>Auth::guard()</code>来执行的，那我们不妨从这里开始看起。</p>
+<h4 id="自定义dirver配置项">自定义dirver配置项</h4>
+<p>我们知道<code>Auth</code>是<code>Illuminate/Auth/AuthManager.php</code>的alias，那我们打开这个文件，找到<code>guard</code>后，发现判断用实际哪个guard的代码在方法<code>resolve</code>中，其中有一段代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">if (isset($this-&gt;customCreators[$config[&#39;driver&#39;]])) {
+    return $this-&gt;callCustomCreator($name, $config);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>发现这个类中有一个数组<code>customCreators</code>，这说明，我们是可以自定义driver的。也就是说，虽然<code>config/auth.php</code>的<code>guards</code>中说<code>driver</code>只支持<code>session</code>和<code>token</code>，但实际上是可以自己扩展的。</p>
+<p>那怎么扩展呢，顺藤摸瓜，发现<code>class AuthManager</code>中有一个方法<code>extend</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function extend($driver, Closure $callback)
+{
+    $this-&gt;customCreators[$driver] = $callback;
+
+    return $this;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这个方法就是给Auth添加自定义driver用的，那我们直接找个provider扩展一下Auth，把自己的driver添加进去就好。</p>
+<p>我们可以先看一下默认的token driver是怎么写的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function createTokenDriver($name, $config)
+{
+    $guard = new TokenGuard(
+        $this-&gt;createUserProvider($config[&#39;provider&#39;] ?? null),
+        $this-&gt;app[&#39;request&#39;]
+    );
+
+    $this-&gt;app-&gt;refresh(&#39;request&#39;, $guard, &#39;setRequest&#39;);
+
+    return $guard;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>就这么几行代码，在5.6以后<code>TokenGuard</code>的构造函数是有4个参数的，原型如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function __construct(UserProvider $provider, Request $request, $inputKey = &#39;api_token&#39;, $storageKey = &#39;api_token&#39;);
+</code></pre></td></tr></table>
+</div>
+</div><p>也就是说，我们把后两个参数传进去就可以了。那就开始搞起，例如在<code>AppServiceProvider</code>的<code>boot</code>方法中添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Auth::extend(&#39;web-token&#39;, function ($app, $name, $config) {
+    $guard = new WebTokenGuard(
+        $this-&gt;createUserProvider($config[&#39;provider&#39;] ?? null),
+        $app[&#39;request&#39;],
+        &#39;token&#39;,
+        &#39;token&#39;
+    );
+
+    $app-&gt;refresh(&#39;request&#39;, $guard, &#39;setRequest&#39;);
+
+    return $guard;
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>这样我们就有了一个新的driver——<code>web-token</code>，config中我们就可以写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#39;guards&#39; =&gt; [
+    &#39;web-api&#39; =&gt; [
+        &#39;driver&#39; =&gt; &#39;web-token&#39;,
+        &#39;provider&#39; =&gt; &#39;tokens&#39;,
+    ],
+],
+</code></pre></td></tr></table>
+</div>
+</div><p>这里发现我的provider也不是users，是因为我新建了一张表专门存token用，配置起来很方便，在同文件的<code>providers</code>中添加如下配置即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">&#39;tokens&#39; =&gt; [
+    &#39;driver&#39; =&gt; &#39;eloquent&#39;,
+    &#39;model&#39; =&gt; App\Models\Token::class,
+],
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这样一来，就产生了新的问题：我们在使用laravel的时候，总会使用类似<code>Auth::id()</code>，<code>Auth::user()</code>这样的方法，因为确实很方便，而我们的认证现在虽然没有问题了，但是因为跟user不是同表，这些方法现在不能用了，那怎么办呢？我们首先来解决第一个问题：</p>
+<h4 id="实现-authid">实现 Auth:id()</h4>
+<p>我们可以看一下框架带的User Model，发现其继承自<code>Illuminate\Foundation\Auth\User</code>，顺藤摸瓜，我们发现他实现了三个接口：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+</code></pre></td></tr></table>
+</div>
+</div><p>这三个接口各有作用，比方说第一个<code>AuthenticatableContract</code>，就是我们目前要实现的，因为其中有一个方法<code>public function getAuthIdentifier();</code>，这个方法就是执行<code>Auth::id()</code>时候会调用的。</p>
+<p>第二个接口是授权时候用的，第三个是重置密码时候用的，这两个我们暂时不需要，那就等以后用到时候再说。</p>
+<p>我们现在让Token Model实现第一个接口，方法的实现根据各自的情况有所不同，例如我的token表中，用户的id列名为<code>user_id</code>，那我的方法就是这样子的：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function getAuthIdentifierName()
+{
+    return &#39;user_id&#39;;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>而因为我实现了实体关系：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function user()
+{
+    return $this-&gt;belongsTo(&#39;App\User&#39;);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>其他的一些方法可以这样写：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">public function getAuthPassword()
+{
+    return $this-&gt;user-&gt;password;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这样大体上第一个问题我们就解决了，接下来解决第二个问题。</p>
+<h4 id="实现-authuser">实现 Auth:user()</h4>
+<p>首先，我们来找一下这个user()方法在哪里，看了<code>AuthManager</code>以后发现，这个user()原来是调用的Guard中的方法，那怎么办呢？我们扩展一下TokenGuard吧。</p>
+<p>新建一个php类继承于<code>TokenGuard</code>，并重写<code>user()</code>方法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-php" data-lang="php">class WebTokenGuard extends TokenGuard
+{
+    public function user()
+    {
+        $token = parent::user();
+
+        if (!$token) {
+            return null;
+        }
+
+        return $token-&gt;user;
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p><code>return null</code>并不会产生问题，这样会使Guard的<code>check()</code>方法返回false，抛出<code>AuthenticationException</code>异常，这与正常的逻辑是一致的。</p>
+<p>这样我们就解决了<code>Auth::user()</code>的问题，扩展类还可以解决一些其他的问题，例如在5.4版本中，<code>$inputKey</code>和<code>$storageKey</code>是直接写在构造函数中的，而不是参数穿进去的，扩展类也可以解决这个问题。</p>
+<h4 id="优化">优化</h4>
+<p>因为使用用了新的Guard类，我们在provider中的代码也需要做一些修改，而同时，我们把字段名也写到config中，便于以后修改，优化后的代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># auth.config
+&#39;web-api&#39; =&gt; [
+    &#39;driver&#39; =&gt; &#39;web-token&#39;,
+    &#39;input_key&#39; =&gt; &#39;token&#39;,
+    &#39;storage_key&#39; =&gt; &#39;token&#39;,
+    &#39;provider&#39; =&gt; &#39;tokens&#39;,
+],
+
+# AppServiceProvider 的 boot
+Auth::extend(&#39;web-token&#39;, function ($app, $name, $config) {
+    $guard = new WebTokenGuard(
+        $this-&gt;createUserProvider($config[&#39;provider&#39;] ?? null),
+        $app[&#39;request&#39;],
+        $config[&#39;input_key&#39;],
+        $config[&#39;storage_key&#39;]
+    );
+
+    $app-&gt;refresh(&#39;request&#39;, $guard, &#39;setRequest&#39;);
+
+    return $guard;
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>这样基本就趋近于最终版本了。</p>
+<h3 id="尾">尾</h3>
+<p>laravel 确实是一个庞大的框架，这次只涉及到了认证的问题，而未谈及授权，例如<code>Auth::can()</code>这样的方法，现在也是不能使用的。</p>
+<p>授权也是一个大头的问题，不同的需求采用的方式不尽相同，laravel也自带一套授权的机制，希望本篇文章可以达到一个抛砖引玉的作用，给小伙伴们一些启发。</p>
+
+    </div>
+
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/wechat-pay.png">
+        <span>微信打赏</span>
+      </label>
+    <label class="qr-code-image" for="reward">
+        <img class="image" src="/path/to/your/alipay-qr-code.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div><footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/2018/%E6%89%BE%E5%87%BA%E7%B3%BB%E7%BB%9F%E7%93%B6%E9%A2%88%E7%9A%84%E5%88%A9%E5%99%A8-sar/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">找出系统瓶颈的利器 -- sar</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/2018/%E5%AD%A6%E4%B9%A0%E4%BA%86%E4%B8%80%E4%B8%8Bvue/">
+            <span class="next-text nav-default">学习了一下vue</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/fyzzy1943" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2010 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>fordawn</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

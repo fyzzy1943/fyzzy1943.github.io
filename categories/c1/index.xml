@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c1 on fordawn - a person blog</title>
+    <link>http://localhost:1313/categories/c1/</link>
+    <description>Recent content in c1 on fordawn - a person blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>fordawn</copyright>
+    <lastBuildDate>Thu, 24 Sep 2020 14:27:09 +0800</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/c1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>5个webflux新手常见的问题</title>
+      <link>http://localhost:1313/post/my-first-post/</link>
+      <pubDate>Thu, 24 Sep 2020 14:27:09 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/my-first-post/</guid>
+      <description>这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力</description>
+    </item>
+    
+  </channel>
+</rss>
