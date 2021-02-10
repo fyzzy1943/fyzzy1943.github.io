@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>fordawn</copyright>
-    <lastBuildDate>Fri, 25 Sep 2020 16:25:21 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Feb 2021 15:37:12 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>迁移到GitPage</title>
+      <link>http://localhost:1313/post/2021/%E8%BF%81%E7%A7%BB%E5%88%B0gitpage/</link>
+      <pubDate>Mon, 08 Feb 2021 15:37:12 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2021/%E8%BF%81%E7%A7%BB%E5%88%B0gitpage/</guid>
+      <description>这两天把博客从服务器迁移到了 git page，这样以后就不用自己配置服务器、维护证书了，而且通过几年的观察，发现服务器并不是那么稳定，偶尔还是会出</description>
+    </item>
     
     <item>
       <title>迁移到hugo</title>
