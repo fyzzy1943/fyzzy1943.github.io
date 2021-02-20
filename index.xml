@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>fordawn</copyright>
-    <lastBuildDate>Mon, 08 Feb 2021 15:37:12 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 20 Feb 2021 18:11:44 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>如何关掉一个API</title>
+      <link>http://localhost:1313/post/2021/%E5%A6%82%E4%BD%95%E5%85%B3%E6%8E%89%E4%B8%80%E4%B8%AAapi/</link>
+      <pubDate>Sat, 20 Feb 2021 18:11:44 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/2021/%E5%A6%82%E4%BD%95%E5%85%B3%E6%8E%89%E4%B8%80%E4%B8%AAapi/</guid>
+      <description>天下没有不散的宴席，无论你的 API 现在有多棒，总有一天你会想要发布一个全新的。而且新的API会与旧的API有些不兼容，可能是换了新的地址，也可能</description>
+    </item>
     
     <item>
       <title>迁移到 github pages</title>
