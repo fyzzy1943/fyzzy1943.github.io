@@ -1,16 +1,159 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>5个webflux新手常见的问题 - fordawn - a blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="fordawn"><meta name=description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><meta name=keywords content="fordawn"><meta name=generator content="Hugo 0.82.0 with theme even"><link rel=canonical href=https://fordawn.com/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="5个webflux新手常见的问题"><meta property="og:description" content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><meta property="og:type" content="article"><meta property="og:url" content="https://fordawn.com/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/"><meta property="article:section" content="post"><meta property="article:published_time" content="2020-07-22T15:41:35+00:00"><meta property="article:modified_time" content="2020-09-21T21:19:35+00:00"><meta itemprop=name content="5个webflux新手常见的问题"><meta itemprop=description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><meta itemprop=datePublished content="2020-07-22T15:41:35+00:00"><meta itemprop=dateModified content="2020-09-21T21:19:35+00:00"><meta itemprop=wordCount content="984"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="5个webflux新手常见的问题"><meta name=twitter:description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>Fordawn</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>主页</li></a><a href=/post/><li class=mobile-menu-item>归档</li></a><a href=/tags/><li class=mobile-menu-item>标签</li></a><a href=/categories/><li class=mobile-menu-item>分类</li></a><a href=/manuals/><li class=mobile-menu-item>手册</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>Fordawn</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>主页</a></li><li class=menu-item><a class=menu-item-link href=/post/>归档</a></li><li class=menu-item><a class=menu-item-link href=/tags/>标签</a></li><li class=menu-item><a class=menu-item-link href=/categories/>分类</a></li><li class=menu-item><a class=menu-item-link href=/manuals/>手册</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>5个webflux新手常见的问题</h1><div class=post-meta><span class=post-time>2020-07-22</span><div class=post-category><a href=/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/>沉默之音</a></div><span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#map-和-flatmap-的区别>map 和 flatMap 的区别</a></li><li><a href=#使用嵌套的-mapflatmap>使用嵌套的 map/flatMap</a></li><li><a href=#不使用反应式函数>不使用反应式函数</a></li><li><a href=#当心-switchifempty-函数>当心 <strong>switchIfEmpty</strong> 函数</a></li><li><a href=#要尽可能的使用响应式组件>要尽可能的使用响应式组件</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><p>这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。</p><blockquote><p>在正确的时间，使用正确的工具，用<strong>正确的方式</strong>，去处理正确的工作。</p></blockquote><p>Spring webflux 是一个用于提供响应式编程能力的框架。</p><h3 id=map-和-flatmap-的区别>map 和 flatMap 的区别</h3><p>是的 map 和 flatMap 是有区别的，这些区别不太容易注意得到。</p><p>flatMap 应该被用于非阻塞的操作，简单的说，就是返回Mono或者Flux类型的数据。</p><p>map 应该被用于固定时间内转换数据的操作，它是同步完成的。</p><p>例子：我们使用 flatMap 把数据存到数据库中，因为它是一个执行时间不确定的异步事件。而把 Person 转成 EnhancedPerson，我们使用了 map，因为它是一个每次执行时间都相对确定的同步事件。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>5个webflux新手常见的问题 - fordawn - a blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="fordawn"><meta name=description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><meta name=keywords content="fordawn">
+<meta name=generator content="Hugo 0.91.2 with theme even">
+<link rel=canonical href=https://fordawn.com/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="5个webflux新手常见的问题">
+<meta property="og:description" content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://fordawn.com/post/2020/5%E4%B8%AAwebflux%E6%96%B0%E6%89%8B%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2020-07-22T15:41:35+00:00">
+<meta property="article:modified_time" content="2020-09-21T21:19:35+00:00">
+<meta itemprop=name content="5个webflux新手常见的问题">
+<meta itemprop=description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><meta itemprop=datePublished content="2020-07-22T15:41:35+00:00">
+<meta itemprop=dateModified content="2020-09-21T21:19:35+00:00">
+<meta itemprop=wordCount content="984">
+<meta itemprop=keywords content><meta name=twitter:card content="summary">
+<meta name=twitter:title content="5个webflux新手常见的问题">
+<meta name=twitter:description content="这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。 在正确的时间，使用正确的工具，用正确的方式，去处理正确的工作。 Spring webflux 是一个用于提供响应式编程能力"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Fordawn</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/manuals/>
+<li class=mobile-menu-item>手册</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Fordawn</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/manuals/>手册</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>5个webflux新手常见的问题</h1>
+<div class=post-meta>
+<span class=post-time> 2020-07-22 </span>
+<div class=post-category>
+<a href=/categories/%E6%B2%89%E9%BB%98%E4%B9%8B%E9%9F%B3/> 沉默之音 </a>
+</div>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href=#map-和-flatmap-的区别>map 和 flatMap 的区别</a></li>
+<li><a href=#使用嵌套的-mapflatmap>使用嵌套的 map/flatMap</a></li>
+<li><a href=#不使用反应式函数>不使用反应式函数</a></li>
+<li><a href=#当心-switchifempty-函数>当心 <strong>switchIfEmpty</strong> 函数</a></li>
+<li><a href=#要尽可能的使用响应式组件>要尽可能的使用响应式组件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>这篇文章是基于对使用 spring webflux 编写代码的仓库的观察。</p>
+<blockquote>
+<p>在正确的时间，使用正确的工具，用<strong>正确的方式</strong>，去处理正确的工作。</p>
+</blockquote>
+<p>Spring webflux 是一个用于提供响应式编程能力的框架。</p>
+<h3 id=map-和-flatmap-的区别>map 和 flatMap 的区别</h3>
+<p>是的 map 和 flatMap 是有区别的，这些区别不太容易注意得到。</p>
+<p>flatMap 应该被用于非阻塞的操作，简单的说，就是返回Mono或者Flux类型的数据。</p>
+<p>map 应该被用于固定时间内转换数据的操作，它是同步完成的。</p>
+<p>例子：我们使用 flatMap 把数据存到数据库中，因为它是一个执行时间不确定的异步事件。而把 Person 转成 EnhancedPerson，我们使用了 map，因为它是一个每次执行时间都相对确定的同步事件。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=k>return</span> <span class=n>Mono</span><span class=o>.</span><span class=na>just</span><span class=o>(</span><span class=n>Person</span><span class=o>(</span><span class=s>&#34;name&#34;</span><span class=o>,</span> <span class=s>&#34;age:12&#34;</span><span class=o>))</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=k>return</span> <span class=n>Mono</span><span class=o>.</span><span class=na>just</span><span class=o>(</span><span class=n>Person</span><span class=o>(</span><span class=s>&#34;name&#34;</span><span class=o>,</span> <span class=s>&#34;age:12&#34;</span><span class=o>))</span>
         <span class=o>.</span><span class=na>map</span> <span class=o>{</span> <span class=n>person</span> <span class=o>-&gt;</span>
             <span class=n>EnhancedPerson</span><span class=o>(</span><span class=n>person</span><span class=o>,</span> <span class=s>&#34;id-set&#34;</span><span class=o>,</span> <span class=s>&#34;savedInDb&#34;</span><span class=o>)</span>
         <span class=o>}.</span><span class=na>flatMap</span> <span class=o>{</span> <span class=n>person</span> <span class=o>-&gt;</span>
             <span class=n>reactiveMongoDb</span><span class=o>.</span><span class=na>save</span><span class=o>(</span><span class=n>person</span><span class=o>)</span>
         <span class=o>}</span>
-</code></pre></td></tr></table></div></div><h3 id=使用嵌套的-mapflatmap>使用嵌套的 map/flatMap</h3><p>大多数有命令式编程观念的程序员，都会在 map/flatMap 中编写大量的代码，这不是一个好习惯，因为它让代码变得难以阅读，就像下面这个嵌套了两个 flatMap 的例子。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=使用嵌套的-mapflatmap>使用嵌套的 map/flatMap</h3>
+<p>大多数有命令式编程观念的程序员，都会在 map/flatMap 中编写大量的代码，这不是一个好习惯，因为它让代码变得难以阅读，就像下面这个嵌套了两个 flatMap 的例子。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -21,7 +164,9 @@
 </span><span class=lnt> 9
 </span><span class=lnt>10
 </span><span class=lnt>11
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-kotlin data-lang=kotlin><span class=k>fun</span> <span class=nf>makePersonASalariedEmployee</span><span class=p>(</span><span class=n>personId</span><span class=p>:</span> <span class=n>String</span><span class=p>):</span> <span class=n>Mono</span><span class=p>&lt;</span><span class=n>Person</span><span class=p>&gt;</span> <span class=p>{</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-kotlin data-lang=kotlin><span class=k>fun</span> <span class=nf>makePersonASalariedEmployee</span><span class=p>(</span><span class=n>personId</span><span class=p>:</span> <span class=n>String</span><span class=p>):</span> <span class=n>Mono</span><span class=p>&lt;</span><span class=n>Person</span><span class=p>&gt;</span> <span class=p>{</span>
 
     <span class=k>return</span> <span class=n>personsRepository</span><span class=p>.</span><span class=n>findPerson</span><span class=p>(</span><span class=n>personId</span><span class=p>)</span>
             <span class=p>.</span><span class=n>flatMap</span> <span class=p>{</span> <span class=n>person</span> <span class=o>-&gt;</span>
@@ -32,7 +177,16 @@
                         <span class=p>}</span>
             <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div><p>unix 哲学：</p><blockquote><p><strong>Do One Thing and Do It Well</strong></p></blockquote><p>这句话用 flatMap 来解释的话，就是在每个 map 中，只执行一次转换。当需要多次转换的时候，调用多次 map，形成一个调用链来处理数据流。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><p>unix 哲学：</p>
+<blockquote>
+<p><strong>Do One Thing and Do It Well</strong></p>
+</blockquote>
+<p>这句话用 flatMap 来解释的话，就是在每个 map 中，只执行一次转换。当需要多次转换的时候，调用多次 map，形成一个调用链来处理数据流。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -42,7 +196,9 @@
 </span><span class=lnt> 8
 </span><span class=lnt> 9
 </span><span class=lnt>10
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-kotlin data-lang=kotlin><span class=k>fun</span> <span class=nf>makePersonASalariedEmployee</span><span class=p>(</span><span class=n>personId</span><span class=p>:</span> <span class=n>String</span><span class=p>):</span> <span class=n>Mono</span><span class=p>&lt;</span><span class=n>Person</span><span class=p>&gt;</span> <span class=p>{</span>
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-kotlin data-lang=kotlin><span class=k>fun</span> <span class=nf>makePersonASalariedEmployee</span><span class=p>(</span><span class=n>personId</span><span class=p>:</span> <span class=n>String</span><span class=p>):</span> <span class=n>Mono</span><span class=p>&lt;</span><span class=n>Person</span><span class=p>&gt;</span> <span class=p>{</span>
 
     <span class=k>return</span> <span class=n>personsRepository</span><span class=p>.</span><span class=n>findPerson</span><span class=p>(</span><span class=n>personId</span><span class=p>)</span>
             <span class=p>.</span><span class=n>flatMap</span> <span class=p>{</span> <span class=n>person</span> <span class=o>-&gt;</span>
@@ -52,7 +208,13 @@
                 <span class=n>salariedEmployeService</span><span class=p>.</span><span class=n>toSalariedEmployee</span><span class=p>(</span><span class=n>employee</span><span class=p>)</span>
             <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></td></tr></table></div></div><h3 id=不使用反应式函数>不使用反应式函数</h3><p>很多命令式编程，都可以用这些强大的链式函数替换掉，这样可以使代码更加清晰。这个例子就使用了 filter 来去掉 if。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=不使用反应式函数>不使用反应式函数</h3>
+<p>很多命令式编程，都可以用这些强大的链式函数替换掉，这样可以使代码更加清晰。这个例子就使用了 filter 来去掉 if。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -69,7 +231,9 @@
 </span><span class=lnt>15
 </span><span class=lnt>16
 </span><span class=lnt>17
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>return Mono.just(Person(&#34;name&#34;, false))
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>return Mono.just(Person(&#34;name&#34;, false))
         .flatMap { person -&gt;
             if (person.consentToSave)
                 reactiveMongoDb.save(person)
@@ -86,21 +250,42 @@ return Mono.just(Person(&#34;name&#34;, false))
         .flatMap { person -&gt;
             reactiveMongoDb.save(person)
         }
-</code></pre></td></tr></table></div></div><h3 id=当心-switchifempty-函数>当心 <strong>switchIfEmpty</strong> 函数</h3><p>总的来说，switchIfEmpty 函数中的操作也<strong>会执行</strong>。所以一定要注意，在 switchIfEmpty 中执行的代码，一定是没有副作用的。例如下面这个方法，数据一样会存到数据，因为 switchIfEmpty 判断的是代码的结果。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=当心-switchifempty-函数>当心 <strong>switchIfEmpty</strong> 函数</h3>
+<p>总的来说，switchIfEmpty 函数中的操作也<strong>会执行</strong>。所以一定要注意，在 switchIfEmpty 中执行的代码，一定是没有副作用的。例如下面这个方法，数据一样会存到数据，因为 switchIfEmpty 判断的是代码的结果。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>return ordersDbRepo.findById(&#34;order-id&#34;)
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>return ordersDbRepo.findById(&#34;order-id&#34;)
         .switchIfEmpty(
                 missingOrdersDb.save(Order(&#34;order-id&#34;, false))
         )
-</code></pre></td></tr></table></div></div><p>一种方法是使用 defer。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table>
+</div>
+</div><p>一种方法是使用 defer。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>return ordersDbRepo.findById(&#34;order-id&#34;)
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>return ordersDbRepo.findById(&#34;order-id&#34;)
         .switchIfEmpty(
                 Mono.defer { missingOrdersDb.save(Order(&#34;order-id&#34;, false)) })
-</code></pre></td></tr></table></div></div><h3 id=要尽可能的使用响应式组件>要尽可能的使用响应式组件</h3><p>当代码中使用的响应式组件越多，响应式编程带来的好处就越明显。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=要尽可能的使用响应式组件>要尽可能的使用响应式组件</h3>
+<p>当代码中使用的响应式组件越多，响应式编程带来的好处就越明显。</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
 </span><span class=lnt> 2
 </span><span class=lnt> 3
 </span><span class=lnt> 4
@@ -115,7 +300,9 @@ return Mono.just(Person(&#34;name&#34;, false))
 </span><span class=lnt>13
 </span><span class=lnt>14
 </span><span class=lnt>15
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Flux.range(1, 10)
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Flux.range(1, 10)
             .map {
                 doSomeIoOperation(it)
             }
@@ -130,20 +317,92 @@ Flux.range(1, 10)
 fun doSomeIoOperation(number: Int): Mono&lt;Int&gt; {
 //  some io operation
 }
-</code></pre></td></tr></table></div></div><blockquote><p>面向接口，不是实现</p></blockquote><p>虽然现在webflux还不成熟，无法以非阻塞方式支持所有异步操作，但是如果我们可以将代码改为 Publishers 风格，就会在未来的集成中更加轻松。</p><p>另一个更好的选择是在发送http请求时，使用webClient(reactive)，而不是restTemplate。</p><p>如果有任何疑问，欢迎交流哦~</p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
-<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=/wechat-pay.png>
-<span>微信打赏</span></label>
-<label class=qr-code-image for=reward><img class=image src=/path/to/your/alipay-qr-code.png>
-<span>支付宝打赏</span></label></div></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/2020/maven%E7%9A%84%E6%A0%87%E5%87%86%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/><i class="iconfont icon-left"></i>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>面向接口，不是实现</p>
+</blockquote>
+<p>虽然现在webflux还不成熟，无法以非阻塞方式支持所有异步操作，但是如果我们可以将代码改为 Publishers 风格，就会在未来的集成中更加轻松。</p>
+<p>另一个更好的选择是在发送http请求时，使用webClient(reactive)，而不是restTemplate。</p>
+<p>如果有任何疑问，欢迎交流哦~</p>
+</div>
+<div class=post-reward>
+<input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label>
+<div class=qr-code>
+<label class=qr-code-image for=reward>
+<img class=image src=/wechat-pay.png>
+<span>微信打赏</span>
+</label>
+<label class=qr-code-image for=reward>
+<img class=image src=/path/to/your/alipay-qr-code.png>
+<span>支付宝打赏</span>
+</label>
+</div>
+</div><footer class=post-footer>
+<nav class=post-nav>
+<a class=prev href=/post/2020/maven%E7%9A%84%E6%A0%87%E5%87%86%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/>
+<i class="iconfont icon-left"></i>
 <span class="prev-text nav-default">maven的标准目录结构</span>
-<span class="prev-text nav-mobile">上一篇</span></a>
-<a class=next href=/post/2020/%E5%9C%A8-typora-%E4%B8%AD%E4%BD%BF%E7%94%A8-upic-%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87/><span class="next-text nav-default">在 typora 中使用 uPic 保存图片</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/2020/%E5%9C%A8-typora-%E4%B8%AD%E4%BD%BF%E7%94%A8-upic-%E4%BF%9D%E5%AD%98%E5%9B%BE%E7%89%87/>
+<span class="next-text nav-default">在 typora 中使用 uPic 保存图片</span>
 <span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:fyzzy1943@gmail.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/fyzzy1943 class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=https://fordawn.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:fyzzy1943@gmail.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a>
+<a href=http://localhost:1313 class="iconfont icon-google" title=google></a>
+<a href=https://github.com/fyzzy1943 class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a>
+<a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a>
+<a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a>
+<a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a>
+<a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a>
+<a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://fordawn.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
 <span class=division>|</span>
-<span class=theme-info>主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
 <span class=division>|</span>
-<span id=busuanzi_container_site_uv>本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人</span></div><span class=copyright-year>&copy;
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
 2010 -
-2021<span class=heart><i class="iconfont icon-heart"></i></span><span>fordawn</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script><script id=baidu_analytics>var _hmt=_hmt||[];(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement("script"),a.async=!0,a.src="https://hm.baidu.com/hm.js?752e7aa6029b4c8386f693bcebf94f71",b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script></body></html>
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>fordawn</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script>
+<script id=baidu_analytics>var _hmt=_hmt||[];(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement("script"),a.async=!0,a.src="https://hm.baidu.com/hm.js?752e7aa6029b4c8386f693bcebf94f71",b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+</body>
+</html>

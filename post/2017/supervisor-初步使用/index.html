@@ -1,26 +1,191 @@
-<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>supervisor 初步使用 - fordawn - a blog</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="fordawn"><meta name=description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><meta name=keywords content="fordawn"><meta name=generator content="Hugo 0.82.0 with theme even"><link rel=canonical href=https://fordawn.com/post/2017/supervisor-%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="supervisor 初步使用"><meta property="og:description" content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><meta property="og:type" content="article"><meta property="og:url" content="https://fordawn.com/post/2017/supervisor-%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/"><meta property="article:section" content="post"><meta property="article:published_time" content="2017-12-16T16:50:20+00:00"><meta property="article:modified_time" content="2020-09-24T08:29:55+00:00"><meta itemprop=name content="supervisor 初步使用"><meta itemprop=description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><meta itemprop=datePublished content="2017-12-16T16:50:20+00:00"><meta itemprop=dateModified content="2020-09-24T08:29:55+00:00"><meta itemprop=wordCount content="924"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="supervisor 初步使用"><meta name=twitter:description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>Fordawn</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>主页</li></a><a href=/post/><li class=mobile-menu-item>归档</li></a><a href=/tags/><li class=mobile-menu-item>标签</li></a><a href=/categories/><li class=mobile-menu-item>分类</li></a><a href=/manuals/><li class=mobile-menu-item>手册</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>Fordawn</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>主页</a></li><li class=menu-item><a class=menu-item-link href=/post/>归档</a></li><li class=menu-item><a class=menu-item-link href=/tags/>标签</a></li><li class=menu-item><a class=menu-item-link href=/categories/>分类</a></li><li class=menu-item><a class=menu-item-link href=/manuals/>手册</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>supervisor 初步使用</h1><div class=post-meta><span class=post-time>2017-12-16</span><div class=post-category><a href=/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/>服务器</a></div><span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#安装>安装</a></li><li><a href=#配置>配置</a></li><li><a href=#主要命令>主要命令</a></li><li><a href=#测试>测试</a></li><li><a href=#其他>其他</a></li><li><a href=#参考资料>参考资料</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><p>Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成daemon，最好还能监控进程状态，在意外结束时能自动重启。</p><p>supervisor就是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。</p><p>大概原理是，将 supervisord.conf 中的配置作为子进程启动，这样就可以控制其整个生命周期，并进行监控。</p><h3 id=安装>安装</h3><p>ubuntu 可以使用 <code>apt-get install supervisor</code>,CentOS 可以使用 <code>yum install supervisor</code>。</p><p>也可以使用 easy_install，执行 <code>easy_install supervisor</code>，或者使用 pip，执行 <code>pip install supervisor</code>。</p><h3 id=配置>配置</h3><p>在终端执行 <code>echo_supervisord_conf</code> 会将默认配置输出到终端，可以使用 <code>echo_supervisord_conf > /etc/supervisord.conf</code> 来生成默认配置文件。</p><p>配置文件搜索优先级：</p><blockquote><ol><li>$CWD/supervisord.conf</li></ol></blockquote><ol start=2><li>$CWD/etc/supervisord.conf</li><li>/etc/supervisord.conf</li><li>/etc/supervisor/supervisord.conf (since Supervisor 3.3.0)</li><li>../etc/supervisord.conf</li><li>../supervisord.conf</li></ol><p>也可以在其他的目录生成后，启动 supervisord 时使用 <code>-c</code> 选项来指定配置文件，例如 <code>supervisord -c path/to/supervisord.conf</code>。</p><h3 id=主要命令>主要命令</h3><p>主要命令有两个，一个是 <code>supervisord</code>，用来启动 supervisor 服务。一个是 <code>supervisorctl</code>，用来控制 supervisor，包含 start, stop, restart 等。</p><h3 id=测试>测试</h3><p>测试文件，test.sh：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge,chrome=1">
+<title>supervisor 初步使用 - fordawn - a blog</title>
+<meta name=renderer content="webkit">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta http-equiv=cache-control content="no-transform">
+<meta http-equiv=cache-control content="no-siteapp">
+<meta name=theme-color content="#f8f5ec">
+<meta name=msapplication-navbutton-color content="#f8f5ec">
+<meta name=apple-mobile-web-app-capable content="yes">
+<meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec">
+<meta name=author content="fordawn"><meta name=description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><meta name=keywords content="fordawn">
+<meta name=generator content="Hugo 0.91.2 with theme even">
+<link rel=canonical href=https://fordawn.com/post/2017/supervisor-%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/>
+<link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png>
+<link rel=manifest href=/manifest.json>
+<link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<link href=/sass/main.min.2e81bbed97b8b282c1aeb57488cc71c8d8c8ec559f3931531bd396bf31e0d4dd.css rel=stylesheet>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous>
+<meta property="og:title" content="supervisor 初步使用">
+<meta property="og:description" content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://fordawn.com/post/2017/supervisor-%E5%88%9D%E6%AD%A5%E4%BD%BF%E7%94%A8/"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2017-12-16T16:50:20+00:00">
+<meta property="article:modified_time" content="2020-09-24T08:29:55+00:00">
+<meta itemprop=name content="supervisor 初步使用">
+<meta itemprop=description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><meta itemprop=datePublished content="2017-12-16T16:50:20+00:00">
+<meta itemprop=dateModified content="2020-09-24T08:29:55+00:00">
+<meta itemprop=wordCount content="924">
+<meta itemprop=keywords content><meta name=twitter:card content="summary">
+<meta name=twitter:title content="supervisor 初步使用">
+<meta name=twitter:description content="Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成dae"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]-->
+</head>
+<body>
+<div id=mobile-navbar class=mobile-navbar>
+<div class=mobile-header-logo>
+<a href=/ class=logo>Fordawn</a>
+</div>
+<div class=mobile-navbar-icon>
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+<nav id=mobile-menu class="mobile-menu slideout-menu">
+<ul class=mobile-menu-list>
+<a href=/>
+<li class=mobile-menu-item>主页</li>
+</a><a href=/post/>
+<li class=mobile-menu-item>归档</li>
+</a><a href=/tags/>
+<li class=mobile-menu-item>标签</li>
+</a><a href=/categories/>
+<li class=mobile-menu-item>分类</li>
+</a><a href=/manuals/>
+<li class=mobile-menu-item>手册</li>
+</a>
+</ul>
+</nav>
+<div class=container id=mobile-panel>
+<header id=header class=header>
+<div class=logo-wrapper>
+<a href=/ class=logo>Fordawn</a>
+</div>
+<nav class=site-navbar>
+<ul id=menu class=menu>
+<li class=menu-item>
+<a class=menu-item-link href=/>主页</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/post/>归档</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/tags/>标签</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/categories/>分类</a>
+</li><li class=menu-item>
+<a class=menu-item-link href=/manuals/>手册</a>
+</li>
+</ul>
+</nav>
+</header>
+<main id=main class=main>
+<div class=content-wrapper>
+<div id=content class=content>
+<article class=post>
+<header class=post-header>
+<h1 class=post-title>supervisor 初步使用</h1>
+<div class=post-meta>
+<span class=post-time> 2017-12-16 </span>
+<div class=post-category>
+<a href=/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/> 服务器 </a>
+</div>
+<span id=busuanzi_container_page_pv class=more-meta> <span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次阅读 </span>
+</div>
+</header>
+<div class=post-toc id=post-toc>
+<h2 class=post-toc-title>文章目录</h2>
+<div class="post-toc-content always-active">
+<nav id=TableOfContents>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href=#安装>安装</a></li>
+<li><a href=#配置>配置</a></li>
+<li><a href=#主要命令>主要命令</a></li>
+<li><a href=#测试>测试</a></li>
+<li><a href=#其他>其他</a></li>
+<li><a href=#参考资料>参考资料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class=post-content>
+<p>Linux的后台进程运行有好几种方法，例如nohup，screen等，但是，如果是一个服务程序，要可靠地在后台运行，我们就需要把它做成daemon，最好还能监控进程状态，在意外结束时能自动重启。</p>
+<p>supervisor就是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。</p>
+<p>大概原理是，将 supervisord.conf 中的配置作为子进程启动，这样就可以控制其整个生命周期，并进行监控。</p>
+<h3 id=安装>安装</h3>
+<p>ubuntu 可以使用 <code>apt-get install supervisor</code>,CentOS 可以使用 <code>yum install supervisor</code>。</p>
+<p>也可以使用 easy_install，执行 <code>easy_install supervisor</code>，或者使用 pip，执行 <code>pip install supervisor</code>。</p>
+<h3 id=配置>配置</h3>
+<p>在终端执行 <code>echo_supervisord_conf</code> 会将默认配置输出到终端，可以使用 <code>echo_supervisord_conf > /etc/supervisord.conf</code> 来生成默认配置文件。</p>
+<p>配置文件搜索优先级：</p>
+<blockquote>
+<ol>
+<li>$CWD/supervisord.conf</li>
+</ol>
+</blockquote>
+<ol start=2>
+<li>$CWD/etc/supervisord.conf</li>
+<li>/etc/supervisord.conf</li>
+<li>/etc/supervisor/supervisord.conf (since Supervisor 3.3.0)</li>
+<li>../etc/supervisord.conf</li>
+<li>../supervisord.conf</li>
+</ol>
+<p>也可以在其他的目录生成后，启动 supervisord 时使用 <code>-c</code> 选项来指定配置文件，例如 <code>supervisord -c path/to/supervisord.conf</code>。</p>
+<h3 id=主要命令>主要命令</h3>
+<p>主要命令有两个，一个是 <code>supervisord</code>，用来启动 supervisor 服务。一个是 <code>supervisorctl</code>，用来控制 supervisor，包含 start, stop, restart 等。</p>
+<h3 id=测试>测试</h3>
+<p>测试文件，test.sh：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
 </span><span class=lnt>6
 </span><span class=lnt>7
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/bash
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=cp>#!/bin/bash
 </span><span class=cp></span>
 <span class=k>while</span> <span class=nb>true</span>
 <span class=k>do</span>
   <span class=nb>echo</span> <span class=sb>`</span>date <span class=s1>&#39;+%F %T&#39;</span><span class=sb>`</span>
   sleep <span class=m>3</span>
 <span class=k>done</span>
-</code></pre></td></tr></table></div></div><p>我们新建一个配置文件，然后在主配置文件中的 [include] 块中引入，（这是比较建议的方式，如果配置文件比较长，使用这种方式可以便于管理）：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table>
+</div>
+</div><p>我们新建一个配置文件，然后在主配置文件中的 [include] 块中引入，（这是比较建议的方式，如果配置文件比较长，使用这种方式可以便于管理）：</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># /home/ins/supervisord.conf 文件
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback># /home/ins/supervisord.conf 文件
 [include]
 ;files = relative/directory/*.ini
 files = supervisord-test.conf
-</code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
@@ -28,7 +193,9 @@ files = supervisord-test.conf
 </span><span class=lnt>6
 </span><span class=lnt>7
 </span><span class=lnt>8
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback># /home/ins/supervisord-test.conf 文件
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback># /home/ins/supervisord-test.conf 文件
 [program:bar]
 command=/home/ins/test.sh
 user=ins
@@ -36,22 +203,110 @@ process_name=%(process_num)02d
 numprocs=2
 autostart=true
 stdout_logfile=/home/fyzzy/tmp/%(program_name)s_%(process_num)02d.log
-</code></pre></td></tr></table></div></div><p>然后执行 <code>supervisord -c supervisord.conf</code> 来启动服务，启动后执行 <code>supervisorctl</code> 进入 supervisor 控制台，可以看到进程们的状态。</p><p>[ins@centos-test ~]$ supervisorctl
+</code></pre></td></tr></table>
+</div>
+</div><p>然后执行 <code>supervisord -c supervisord.conf</code> 来启动服务，启动后执行 <code>supervisorctl</code> 进入 supervisor 控制台，可以看到进程们的状态。</p>
+<p>[ins@centos-test ~]$ supervisorctl
 bar:00 RUNNING pid 6189, uptime 0:03:40
-bar:01 RUNNING pid 6190, uptime 0:03:40</p><p>在 <code>tmp</code> 目录下，可以看到 bar_00.log 和 bar_01.log 文件，里面是命令的输出。</p><blockquote><p>tip：stdout_logfile 选项中的路径必须存在，不然会报错。</p></blockquote><p>在控制台内输入 <code>help</code> 可以查看控制台内命令。</p><blockquote><p>tip：在测试时可能会频繁修改配置，修改后在控制台里执行 <code>reload</code> 就可以重新加载配置，不用重启服务。</p></blockquote><h3 id=其他>其他</h3><h4 id=web-server>web server</h4><p>supervisor 还有 web server，在配置文件中的 [inet_http_server] 块中配置，配置后可通过web页面管理进程。</p><h4 id=xml_rpc-接口>XML_RPC 接口</h4><p>supervisor 提供 XML_RPC 来方便外部调用，并且有很多第三方类（包括php）。</p><h4 id=其他-1>其他</h4><p>supervisord.conf 中包含很多种控制块，可以实现不同的功能。supervisor 还提供 事件监听 功能。</p><h3 id=参考资料>参考资料</h3><ul><li><a href=http://supervisord.org>http://supervisord.org</a></li><li><a href=http://blog.51cto.com/lixcto/1539136>http://blog.51cto.com/lixcto/1539136</a> // 配置项中文翻译</li></ul></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
-<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=/wechat-pay.png>
-<span>微信打赏</span></label>
-<label class=qr-code-image for=reward><img class=image src=/path/to/your/alipay-qr-code.png>
-<span>支付宝打赏</span></label></div></div><footer class=post-footer><nav class=post-nav><a class=prev href=/post/2017/747.-min-cost-climbing-stairs/><i class="iconfont icon-left"></i>
+bar:01 RUNNING pid 6190, uptime 0:03:40</p>
+<p>在 <code>tmp</code> 目录下，可以看到 bar_00.log 和 bar_01.log 文件，里面是命令的输出。</p>
+<blockquote>
+<p>tip：stdout_logfile 选项中的路径必须存在，不然会报错。</p>
+</blockquote>
+<p>在控制台内输入 <code>help</code> 可以查看控制台内命令。</p>
+<blockquote>
+<p>tip：在测试时可能会频繁修改配置，修改后在控制台里执行 <code>reload</code> 就可以重新加载配置，不用重启服务。</p>
+</blockquote>
+<h3 id=其他>其他</h3>
+<h4 id=web-server>web server</h4>
+<p>supervisor 还有 web server，在配置文件中的 [inet_http_server] 块中配置，配置后可通过web页面管理进程。</p>
+<h4 id=xml_rpc-接口>XML_RPC 接口</h4>
+<p>supervisor 提供 XML_RPC 来方便外部调用，并且有很多第三方类（包括php）。</p>
+<h4 id=其他-1>其他</h4>
+<p>supervisord.conf 中包含很多种控制块，可以实现不同的功能。supervisor 还提供 事件监听 功能。</p>
+<h3 id=参考资料>参考资料</h3>
+<ul>
+<li><a href=http://supervisord.org>http://supervisord.org</a></li>
+<li><a href=http://blog.51cto.com/lixcto/1539136>http://blog.51cto.com/lixcto/1539136</a> // 配置项中文翻译</li>
+</ul>
+</div>
+<div class=post-reward>
+<input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label>
+<div class=qr-code>
+<label class=qr-code-image for=reward>
+<img class=image src=/wechat-pay.png>
+<span>微信打赏</span>
+</label>
+<label class=qr-code-image for=reward>
+<img class=image src=/path/to/your/alipay-qr-code.png>
+<span>支付宝打赏</span>
+</label>
+</div>
+</div><footer class=post-footer>
+<nav class=post-nav>
+<a class=prev href=/post/2017/747.-min-cost-climbing-stairs/>
+<i class="iconfont icon-left"></i>
 <span class="prev-text nav-default">747. Min Cost Climbing Stairs</span>
-<span class="prev-text nav-mobile">上一篇</span></a>
-<a class=next href=/post/2017/centos-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/><span class="next-text nav-default">CentOS 常用操作</span>
+<span class="prev-text nav-mobile">上一篇</span>
+</a>
+<a class=next href=/post/2017/centos-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/>
+<span class="next-text nav-default">CentOS 常用操作</span>
 <span class="next-text nav-mobile">下一篇</span>
-<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:fyzzy1943@gmail.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/fyzzy1943 class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=https://fordawn.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<i class="iconfont icon-right"></i>
+</a>
+</nav>
+</footer>
+</article>
+</div>
+</div>
+</main>
+<footer id=footer class=footer>
+<div class=social-links>
+<a href=mailto:fyzzy1943@gmail.com class="iconfont icon-email" title=email></a>
+<a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a>
+<a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a>
+<a href=http://localhost:1313 class="iconfont icon-google" title=google></a>
+<a href=https://github.com/fyzzy1943 class="iconfont icon-github" title=github></a>
+<a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a>
+<a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a>
+<a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a>
+<a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a>
+<a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a>
+<a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a>
+<a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a>
+<a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a>
+<a href=https://fordawn.com/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a>
+</div>
+<div class=copyright>
+<span class=power-by>
+由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动
+</span>
 <span class=division>|</span>
-<span class=theme-info>主题 -
-<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次</span>
+<span class=theme-info>
+主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a>
+</span>
+<div class=busuanzi-footer>
+<span id=busuanzi_container_site_pv> 本站总访问量 <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span> 次 </span>
 <span class=division>|</span>
-<span id=busuanzi_container_site_uv>本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人</span></div><span class=copyright-year>&copy;
+<span id=busuanzi_container_site_uv> 本站总访客数 <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span> 人 </span>
+</div>
+<span class=copyright-year>
+&copy;
 2010 -
-2021<span class=heart><i class="iconfont icon-heart"></i></span><span>fordawn</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script><script id=baidu_analytics>var _hmt=_hmt||[];(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement("script"),a.async=!0,a.src="https://hm.baidu.com/hm.js?752e7aa6029b4c8386f693bcebf94f71",b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script></body></html>
+2022<span class=heart><i class="iconfont icon-heart"></i></span><span>fordawn</span>
+</span>
+</div>
+</footer>
+<div class=back-to-top id=back-to-top>
+<i class="iconfont icon-up"></i>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script>
+<script type=text/javascript src=/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js></script>
+<script id=baidu_analytics>var _hmt=_hmt||[];(function(){var a,b;if(window.location.hostname==='localhost')return;a=document.createElement("script"),a.async=!0,a.src="https://hm.baidu.com/hm.js?752e7aa6029b4c8386f693bcebf94f71",b=document.getElementsByTagName("script")[0],b.parentNode.insertBefore(a,b)})()</script>
+</body>
+</html>
